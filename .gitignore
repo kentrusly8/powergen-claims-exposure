@@ -1,0 +1,15 @@
+# Python environment (rebuilt from requirements.txt)
+.venv/
+__pycache__/
+
+# Mac system clutter
+.DS_Store
+
+# Database (rebuilt by script)
+*.db
+
+# Secrets — never public
+.env
+
+# Jupyter auto-saves
+.ipynb_checkpoints/
