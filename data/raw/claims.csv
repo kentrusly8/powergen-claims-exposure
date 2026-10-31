@@ -1,0 +1,224 @@
+claim_id,plant_id,plant_name,technology,loss_date,cause,claim_amount,currency
+CL-00010,PG-0029,Westerlin Wind Farm,Onshore Wind,19.08.2022,Machinery breakdown,"219.782,94",EUR
+CL-00085,PG-0056,Rookhaven Power Station,Gas Turbine,22 Aug 2023,Machinery breakdown,"2,422,420.39",EUR
+CL-00118,PG-0039,Grevlund Energy Storage,Battery Storage,13.12.2023,Fire,"610,376.23",EUR
+CL-00145,PG-0092,Kaldor Solar Park,Solar PV,16.03.2024,Hail,"327,305.94",EUR
+CL-00016,PG-0046,Velmora Solar Park,Solar,2022-10-02,Hail,"161,328.11",EUR
+CL-00114,,Frostham Solar Park,Solar PV,21.11.2023,Flood,"103.487,60",EUR
+CL-00069,PG 21,Pellham Solar Park,solar pv,29.06.2023,Machinery breakdown,"459.185,65",EUR
+CL-00105,PG-0101,Sonnfeld Solar Park,Solar PV,2023-10-20,Hail,"3.485.500,39",EUR
+CL-00178,,Kirnvale Offshore Wind Farm,Wind Offshore,12 Oct 2024,Machinery breakdown,"10,311,909.36",EUR
+CL-00186,PG-0076,Thornvik Offshore Wind Farm,Offshore Wind,27.10.2024,Machinery breakdown,"15,880,780.22",EUR
+CL-00056,PG-0116,Westerlin Energy Storage,Battery,22.04.2023,Machinery breakdown,"342.649,11",USD
+CL-00016,PG-0046,Velmora Solar Park,Solar,2022-10-02,Hail,"161,328.11",EUR
+CL-00199,PG 65,Kirnvale Offshore Wind Farm,offshore,2025-01-02,Machinery breakdown,"5.236.118,92",EUR
+CL-00026,PG-0059,Kirnvale Energy Storage,Battery Storage,26.11.2022,Machinery breakdown,"319.462,35",EUR
+CL-00031,PG-0095,Varnholt Solar Park,Solar,08.12.2022,Fire,"727.440,67",EUR
+CL-00046,PG-0040,Rookhaven Offshore WindF arm,Offshore Wind,18.03.2023,Storm,"20,467,215.68",EUR
+CL-00172,PG-0007,Ostrand Offshore Wind Farm,Offshore Wind,2024-08-02,Machinery breakdown,"6,693,235.96",EUR
+CL-00083,PG-0116,Westerlin Energy Storage,Battery Storage,2023-08-12,Fire,456939,EUR
+CL-00208,PG-0112,Quarnby Offshore Wind Farm,Offshore Wind,2025-04-17,Machinery breakdown,21430228,EUR
+CL-00098,,Kirnvale Energy Storage,Battery,02 Oct 2023,Battery thermal event,"134.795,78",EUR
+CL-00094,PG-0060,Zellbach Solar Park,Solar PV,2023-09-26,Storm,"126,987.29",EUR
+CL-00019,PG-0035,Tarsel Wind Farm,Onshore Wind,11.10.2022,Machinery breakdown,"1.479.758,30",EUR
+CL-00080,PG-0005,Frostham Energy Storage,BESS,2024-11-20,Fire,"405.669,32",EUR
+CL-00142,PG-0088,Tarsel Power Station,Gas,2024-03-07,Fire,"5,337,940.65",EUR
+CL-00148,pg30,Merrowdal Wind Farm,Wind Onshore,2024-03-27,Fire,844112,EUR
+CL-00144,PG-0023,Kestrel Bay Energy Storage,BESS,11.03.2024,Fire,421693,EUR
+CL-00197,,Grevlund Offshore Wind Farm,Offshore Wind,2024-12-13,Machinery breakdown,"8.173.601,72",EUR
+CL-00068,PG-0105,Ivenstad Hydro Plant,Hydro,2023-06-16,Fire,"3.838.403,14",EUR
+CL-00061,PG-0089,Tarsel Energy Storage,Battery,2023-05-12,Battery thermal event,"515.865,91",EUR
+CL-00102,PG-0003,Orrin Energy Storage,Battery,2023-10-13,Battery thermal event,"208,216.93",EUR
+CL-00212,PG-0018,Westerlin Offshore Wid Farm,offshore,2025-06-03,Storm,"11,068,923.91",EUR
+CL-00070,PG-0119,Stellwick Offshore Wind Farm,offshore,30 Jun 2023,Storm,10893832,USD
+CL-00017,pg106,Rendal Power Station,Gas,04.10.2022,Machinery breakdown,"2,750,976.75",EUR
+CL-00190,PG-0137,Halvsund Wind Farm,Onshore Wind,2024-11-10,Storm,"410,900.50",EUR
+CL-00157,PG-0075,Quarnby Solar Park,PV,27.04.2024,Hail,113117,USD
+CL-00115,PG-0084,Merrowdal Energy Storage,Battery,23.11.2023,Battery thermal event,"743.878,34",EUR
+CL-00160,PG-0061,Yarrow Point Power Station,Gas Turbine,19 May 2024,Machinery breakdown,1908743,USD
+CL-00112,PG-0101,Sonnfeld Solar Park,Solar PV,12.11.2023,Storm,"350,853.69",EUR
+CL-00076,PG-0022,Varnholt Hydro Plant,Hydro,12 Nov 2022,Machinery breakdown,"1.446.972,35",EUR
+CL-00181,PG-0072,Pellham Energy Storage,BESS,22 Oct 2024,Machinery breakdown,"457,488.99",EUR
+CL-00141,PG-0006,Nordhal Energy Storage,Battery Storage,2025-02-26,Machinery breakdown,"1.069.056,05",EUR
+CL-00206,PG-0013,Zellbach Offshore Wind Farm,Wind Offshore,02 Apr 2025,Machinery breakdown,19409903,EUR
+CL-00184,PG-0018,Westerlin Offshore Wind Farm,Offshore Wind,26.10.2024,Storm,"13,621,754.83",EUR
+CL-00121,PG-0110,Kaldor Wind Farm,Onshore Wind,2023-12-29,Machinery breakdown,"112,618.51",EUR
+CL-00166,PG-0112,Quarnby Offshore Wind Farm,Wind Offshore,2024-06-17,Storm,"16.848.257,48",EUR
+CL-00128,PG-0019,Morwen Offshore Wind Farm,Wind Offshore,2024-01-31,Storm,"7,146,096.86",USD
+CL-00067,PG 1,Belcourt Solar Park,Solar,15 Jun 2023,Hail,"344.692,44",EUR
+CL-00074,PG 69,Pellham Offshore Wind Farm,offshore,2023-07-18,Machinery breakdown,"21,661,368.15",USD
+CL-00097,PG-0059,Kirnvale Energy Storage,Battery Storage,2023-10-02,Machinery breakdown,114539,EUR
+CL-00120,pg39,Grevlund Energy Storage,Battery,2023-12-28,Machinery breakdown,"474,178.35",EUR
+CL-00087,PG-0055,Ulmsted Hydro Plant,hydro,2023-09-12,Fire,2374486,EUR
+CL-00165,PG-0111,Kestrel Bay Offshore Wind Farm,Offshore Wind,2022-05-12,Storm,"5,812,232.44",EUR
+CL-00096,,Falkweil Wind Farm,onshore wind,2023-10-01,Storm,"1.113.584,10",EUR
+CL-00113,PG 110,Kaldor Wind Farm,onshore wind,21.11.2023,Storm,"108,378.74",EUR
+CL-00039,PG-0055,Ulmsted Hydro Plant,Hydropower,14.01.2023,Flood,"2,778,400.95",EUR
+CL-00025,,Morwen Hydro Plant,Hydro,2022-11-24,Machinery breakdown,"473,810.25",EUR
+CL-00101,pg40,Rookhaven Offshore Wind Farm,offshore,09.10.2023,Machinery breakdown,"16.542.134,50",EUR
+CL-00183,PG-0120,Gallowmere Energy Storage,BESS,2024-10-25,Machinery breakdown,411072,EUR
+CL-00193,PG-0066,Ivenstad Energy Storage,Battery Storage,19 Nov 2024,Battery thermal event,"430,982.79",EUR
+CL-00011,PG-0029,Westerlin Wind Farm,Wind Onshore,01.09.2022,Fire,198119,EUR
+CL-00030,PG-0070,Ashmere Offshore Wind Farm,Offshore Wind,2022-12-06,Storm,8916556,EUR
+CL-00020,PG-0043,merrowdal solar park,Solar,27.10.2022,Storm,"196,017.86",EUR
+CL-00182,PG-0092,Kaldor Solar Park,Solar PV,23 Oct 2024,Storm,"321.498,55",EUR
+CL-00214,PG 75,Quarnby Solar Park,Solar PV,2025-10-22,Fire,"101.241,60",EUR
+CL-00116,pg96,Velora Wind Farm,Onshore Wind,2023-11-30,Machinery breakdown,1011943,EUR
+CL-00209,PG 92,Kaldor Solar Park,Solar PV,13.05.2025,Fire,"357.567,15",EUR
+CL-00006,pg114,Westerlin Solar Park,Solar,2022-07-14,Flood,"489,317.47",EUR
+CL-00057,PG-0011,Eiderfeld Offshore Wind Farm,Offshore Wind,2023-05-03,Storm,"10.107.315,39",EUR
+CL-00110,PG-0115,Frostham Offshore Wind Farm,Offshore Wind,01 Nov 2023,Fire,"19,264,678.15",EUR
+CL-00137,,Caldspring Wind Farm,Onshore Wind,2024-03-02,Storm,"1,288,422.09",EUR
+CL-00109,PG-0065,Kirnvale Offshore Wind Farm,offshore,01 Nov 2023,Fire,"14,309,942.76",EUR
+CL-00066,PG-0070,Ashmere Offshore Wind Farm,Offshore Wind,2023-06-06,Machinery breakdown,18209181,EUR
+CL-00119,PG-0093,Falkweil Energy Storage,Battery Storage,15.12.2023,Machinery breakdown,"501.710,50",EUR
+CL-00067,PG 1,Belcourt Solar Park,Solar,15 Jun 2023,Hail,"344.692,44",EUR
+CL-00156,PG-0023,Kestrel Bay Enery Storage,Battery,26 Apr 2024,Battery thermal event,"420,865.49",EUR
+CL-00032,PG-0091,Liesach Energy Storage,Battery Storage,26.12.2022,Flood,509256,EUR
+CL-00013,PG-0035,Tarsel Wind Farm,Wind Onshore,12 Sep 2022,Storm,"1,056,819.93",EUR
+CL-00036,pg81,Ashmere Hydro Plant,Hydropower,08.01.2023,Machinery breakdown,"3.440.279,14",EUR
+CL-00029,PG-0044,Ashmere Solar Park,solar pv,2022-12-01,Fire,"3,285,756.96",EUR
+CL-00043,pg89,Tarsel Energy Storage,BESS,24 Feb 2023,Machinery breakdown,"1,382,277.96",EUR
+CL-00179,pg3,Orrin Energy Storage,Battery,2022-07-27,Battery thermal event,"211,470.32",EUR
+CL-00143,PG-0078,Orrin Solar Park,PV,10.03.2024,Hail,690074,EUR
+CL-00153,PG-0048,Eiderfeld Energy Storage,Battery,2024-04-17,Battery thermal event,"567.684,17",EUR
+CL-00052,,Yarrow Point Power Station,Gas,2023-04-05,Machinery breakdown,"4.255.575,49",EUR
+CL-00176,PG-0007,Ostrand Offshore Wind Farm,Wind Offshore,2024-08-27,Storm,"7.472.551,98",EUR
+CL-00087,PG-0055,Ulmsted Hydro Plant,hydro,2023-09-12,Fire,2374486,EUR
+CL-00077,PG-0048,Eiderfeld Energy Storage,BESS,22 Jul 2023,Machinery breakdown,"482.390,43",EUR
+CL-00042,PG-0070,Ashmere Offshore Wind Farm,Wind Offshore,01.02.2023,Machinery breakdown,"21,293,301.49",EUR
+CL-00138,,Yarrow Point Hydro Plant,Hydro,05.03.2024,Flood,"2,959,007.41",EUR
+CL-00079,PG-0087,Ivenstad Solar Park,Solar PV,27.07.2023,Machinery breakdown,"187,347.67",EUR
+CL-00133,PG-0093,Falkweil Energy Storage,BESS,15.08.2022,Flood,483687,EUR
+CL-00027,PG-0083,Silberau Energy Storage,BESS,2022-11-30,Battery thermal event,"1,744,146.57",EUR
+CL-00149,PG-0101,Sonnfeld Solar Park,Solar,2024-04-07,Storm,"423,134.09",EUR
+CL-00169,PG-0015,Siberau Solar Park,Solar PV,2024-07-24,Hail,"310,004.21",EUR
+CL-00140,,Thornvik Offshore Wind Farm,offshore,2024-03-06,Fire,"15,700,806.82",USD
+CL-00001,PG-0083,Silberau Energy Storage,Battery,2022-03-02,Flood,"327,663.23",USD
+CL-00003,pg59,Kirnvale Energy Storage,Battery Storage,2022-04-26,Machinery breakdown,"130.044,28",EUR
+CL-00078,PG-0042,Morwen Power Station,Gas,26.07.2023,Machinery breakdown,"1,059,427.94",EUR
+CL-00047,PG-0052,Rookhaven Solar Park,solar pv,2023-03-23,Machinery breakdown,"362.701,85",EUR
+CL-00118,PG-0039,Grevlund Energy Storage,Battery Storage,13.12.2023,Fire,"610,376.23",EUR
+CL-00136,,Frostham Offshore Wind Farm,offshore,27 Feb 2024,Fire,"19,706,476.33",EUR
+CL-00126,PG-0048,Eiderfeld Energy Storage,BESS,2024-01-26,Machinery breakdown,"713.636,21",EUR
+CL-00091,,Grevlund Energy Storage,Battery Storage,21.09.2023,Flood,"529,865.93",EUR
+CL-00086,PG-0051,Sonnfeld Power Station,Gas,03 Sep 2023,Machinery breakdown,"774,916.49",EUR
+CL-00159,PG 85,Velmora Energy Storage,Battery Storage,16.05.2024,Flood,"698.022,37",EUR
+CL-00204,PG-0080,brenvik hydro plant,Hydropower,02 Feb 2025,Machinery breakdown,"2,930,047.49",USD
+CL-00099,PG-0056,Rookhavne Power Station,CCGT,2023-10-06,Fire,"2.066.149,09",EUR
+CL-00037,pg111,Kestrel Bay Offshore Wind Farm,Wind Offshore,12.01.2023,Machinery breakdown,"8,064,949.84",EUR
+CL-00200,PG-0072,Pellham EnergyS torage,Battery Storage,03 Jan 2025,Machinery breakdown,1168371,EUR
+CL-00062,PG-0099,Orrin Power Staion,Gas,14 May 2023,Machinery breakdown,"4,312,905.48",USD
+CL-00023,PG-0089,Tarsel Energy Storage,Battery Storage,12 Nov 2022,Battery thermal event,"798.954,27",EUR
+CL-00147,PG-0067,Sonnfeld Hydro Plant,Hydro,20.03.2024,Machinery breakdown,"2,268,623.11",EUR
+CL-00125,PG-0053,Varnholt Offshore Wind Farm,Wind Offshore,2024-01-22,Storm,"4.220.346,31",USD
+CL-00034,PG 93,Falkweil Energy Storage,BESS,07.01.2023,Machinery breakdown,"622,926.40",EUR
+CL-00012,PG-0096,Velmora iWnd Farm,onshore wind,11.09.2022,Machinery breakdown,"1,198,629.83",EUR
+CL-00192,PG-0110,Kaldor Wind Farm,Onshore Wind,2024-11-15,Machinery breakdown,167762,EUR
+CL-00177,PG-0076,Thornvik Offshore Wind Farm,Offshore Wind,2024-09-05,Machinery breakdown,13293336,EUR
+CL-00007,PG-0049,Brenvik Solar Park,PV,17 Jul 2022,Hail,192619,EUR
+CL-00028,,Caldspring Offshore Wind Farm,Offshore Wind,30.11.2022,Machinery breakdown,"13.068.126,38",USD
+CL-00139,PG-0091,Liesach Energy Storage,Battery Storage,2024-03-05,Fire,"528.952,10",USD
+CL-00010,PG-0029,Westerlin Wind Farm,Onshore Wind,19.08.2022,Machinery breakdown,"219.782,94",EUR
+CL-00154,PG-0150,Tessgard Power Station,Gas,19.04.2024,Flood,"764.501,64",EUR
+CL-00005,PG-0039,Grevlund Energy Storgae,Battery Storage,16.05.2022,Machinery breakdown,"711,955.13",EUR
+CL-00123,PG-0051,Sonnfeld Power Station,Gas Turbine,12.01.2024,Machinery breakdown,"1,493,440.95",EUR
+CL-00033,pg46,VELMORA SOLAR PARK,Solar PV,31.12.2022,Hail,"158,742.60",USD
+CL-00127,PG-0120,Gallowmere Energy Storage,Battery Storage,27.01.2024,Machinery breakdown,"387.280,43",EUR
+CL-00162,PG-0084,Merrowdal Energy Storage,Battery,22 May 2024,Battery thermal event,"466.572,44",USD
+CL-00163,PG-0096,Velmora Wind Farm,Onshore Wind,2024-05-29,Storm,"1,163,935.05",EUR
+CL-00194,PG-0003,Orrin Energy Storage,Battery Storage,19 Nov 2024,Machinery breakdown,"233,148.37",EUR
+CL-00063,PG-0048,Eiderfeld Energy Storage,Battery Storage,24.05.2023,Flood,"394.437,81",EUR
+CL-00129,PG-0024,caldspring wind farm,onshore wind,03 Feb 2024,Machinery breakdown,1177763,EUR
+CL-00201,,Pellham Energy Storage,Battery Storage,05 Jan 2025,Battery thermal event,668920,EUR
+CL-00196,PG-0002,Rendal Solar Park,Solar PV,08.12.2024,Storm,"434.578,98",EUR
+CL-00071,PG-0142,CORVANE ENERGY STORAGE,Battery Storage,2023-07-04,Flood,1820351,EUR
+CL-00173,PG-0131,Norrbeck Solar Park,solar pv,09.08.2024,Machinery breakdown,796693,EUR
+CL-00065,PG-0022,Varnholt Hydro Plant,hydro,2023-06-06,Machinery breakdown,"1.618.833,27",EUR
+CL-00045,PG-0044,Ashmere Solar Park,PV,2023-03-08,Hail,"352,805.83",EUR
+CL-00151,PG-0106,Rendal Power Station,CCGT,14.04.2024,Machinery breakdown,"2.062.047,18",EUR
+CL-00041,PG-0035,Tarsel Wind Farm,Onshore Wind,2023-01-30,Machinery breakdown,"1,029,587.56",USD
+CL-00124,PG-0004,Rendal Hydro Plant,hydro,2024-01-15,Flood,"1,062,030.27",EUR
+CL-00024,PG-0029,Westerlin Wind Farm,Onshore Wind,2022-11-15,Machinery breakdown,"327,201.62",EUR
+CL-00168,PG-0061,Yarrow Point Power Station,Gas,2025-07-31,Fire,"1,708,944.28",EUR
+CL-00164,PG-0020,Zellbach Hydro Plant,Hydro,10 Jun 2024,Flood,"2.092.418,06",EUR
+CL-00082,PG 102,Ulmsted Solar Park,Solar PV,2023-08-04,Storm,"354,652.08",EUR
+CL-00040,PG-0089,Tarsel Energy Storage,BESS,2023-01-24,Machinery breakdown,"540,680.68",EUR
+CL-00187,PG-0101,Sonnfeld Solar Park,Solar PV,2024-10-29,Fire,"285.202,40",EUR
+CL-00048,PG-0119,Stellwick Offshore Wind Farm,Wind Offshore,23.03.2023,Storm,"13.928.537,22",USD
+CL-00095,,Pellham Offshore Wind Farm,Offshore Wind,2023-09-28,Machinery breakdown,"8,720,946.76",EUR
+CL-00171,pg18,Westerlin Offshore Wind Farm,Offshore Wind,2024-07-30,Storm,"11,163,343.10",EUR
+CL-00044,PG-0001,Belcourt Solar Park,Solar PV,07.03.2023,Hail,"308.479,72",EUR
+CL-00146,,Kestrel Bay Solar Prak,PV,16.03.2024,Hail,"496,682.05",EUR
+CL-00155,PG-0101,Sonnfeld Solar Park,Solar PV,26.04.2024,Flood,293939,EUR
+CL-00004,PG-0058,Kestrel Bay Power Station,Gas,2022-05-07,Fire,"3.878.675,67",USD
+CL-00106,PG-0064,Merrowdla Offshore Wind Farm,Wind Offshore,23.10.2023,Machinery breakdown,6221527,EUR
+CL-00054,PG-0069,PELLHAM OFFSHORE WIND FARM,offshore,09 Apr 2023,Machinery breakdown,"9.471.657,92",EUR
+CL-00134,PG-0090,Yarrow Point Solar Park,Solar PV,2024-02-21,Hail,"102,838.19",EUR
+CL-00202,PG-0100,Morwen Solar Park,PV,18 Jan 2025,Flood,"658,134.47",EUR
+CL-00174,PG-0024,Caldspring Wind Farm,Onshore Wind,18 Aug 2024,Fire,"1.402.473,11",EUR
+CL-00207,PG-0033,Grevlund Offshore Wnd Farm,Offshore Wind,03.04.2025,Storm,"8.839.879,25",USD
+CL-00050,PG-0012,Frosham Solar Park,solar pv,31.03.2023,Storm,"129.302,52",EUR
+CL-00081,PG-0013,Zellbach Offshore Wind Farm,Offshore Wind,28 Jul 2023,Machinery breakdown,"32,720,319.90",EUR
+CL-00035,PG-0117,Belcourt Energy Storage,BESS,07.01.2023,Battery thermal event,"255,244.15",EUR
+CL-00008,,Hesperau Wind Farm,onshore wind,26.07.2022,Fire,"858.771,54",EUR
+CL-00111,PG-0055,Ulmstde Hydro Plant,Hydropower,09 Nov 2023,Machinery breakdown,"1,694,918.33",EUR
+CL-00092,PG-0001,Belcourt Solar Park,Solar PV,24.09.2023,Storm,"338,481.66",EUR
+CL-00084,PG-0117,Belcourt Energy Sotrage,BESS,17.08.2023,Battery thermal event,"255.222,81",EUR
+CL-00198,PG-0002,Rendal Solar Park,Solar PV,2024-12-21,Storm,"452.906,17",EUR
+CL-00213,PG-0018,Westerlin Offshore Wind Farm,Wind Offshore,2025-09-13,Machinery breakdown,"17,679,595.63",EUR
+CL-00090,PG-0101,Sonfeld Solar Park,Solar,21 Sep 2023,Flood,"607,154.06",USD
+CL-00009,,Yarrow Point Energy Stoarge,Battery,2022-08-07,Fire,446977,EUR
+CL-00014,PG 49,Brenvik Solar Park,solar pv,17.09.2022,Hail,214550,EUR
+CL-00060,,Frostham Energy Storage,Battery Storage,2023-05-09,Machinery breakdown,"334,727.79",EUR
+CL-00191,PG-0024,Caldspring Wind Farm,onshore wind,11.01.2023,Machinery breakdown,"1.118.205,07",EUR
+CL-00132,PG-0069,Pellham Offshore Wind Farm,offshore,2024-02-14,Machinery breakdown,"11.425.808,84",USD
+CL-00018,,Ivenstad Hydr Plant,hydro,09 Oct 2022,Flood,"3.254.648,50",EUR
+CL-00167,PG-0054,Orrin Wind Farm,Onshore Wind,2024-07-08,Storm,"1.120.947,65",USD
+CL-00073,pg91,LIESACH ENERGY STORAGE,Battery Storage,11 Jul 2023,Machinery breakdown,"601.633,47",EUR
+CL-00195,pg101,Sonnfeld Solar Park,Solar PV,2024-11-30,Machinery breakdown,"338,577.62",EUR
+CL-00135,PG-0044,Ashmere Solar Park,Solar PV,22.02.2024,Hail,"430.069,12",EUR
+CL-00185,PG-0120,Gallowmere Energy Storage,Battery Storage,2024-10-27,Flood,"446.954,89",EUR
+CL-00205,PG-0103,Dornau Solar Park,Solar PV,2025-02-22,Flood,"351,585.97",EUR
+CL-00064,PG-0109,Kaldor Energy Storage,Battery Storage,2023-06-02,Fire,"168.624,55",EUR
+CL-00055,PG-0086,Varnholt Energy Storage,Battery Storage,21.04.2023,Flood,"115,925.76",EUR
+CL-00108,PG-0003,Orrin Energy Storage,BESS,2023-10-29,Battery thermal event,"393,919.59",EUR
+CL-00051,,Pellham Offshore Wind Farm,Offshore Wind,01.04.2023,Storm,9057427,EUR
+CL-00175,PG-0042,Morwen Power Station,Gas,23.08.2024,Fire,"961,130.91",EUR
+CL-00112,PG-0101,Sonnfeld Solar Park,Solar PV,12.11.2023,Storm,"350,853.69",EUR
+CL-00170,PG-0088,Tarsel Power Station,Gas Turbine,2024-07-26,Fire,"4,639,490.10",USD
+CL-00059,PG-0089,Tarsel Energy Storage,Battery Storage,2023-05-06,Machinery breakdown,"518.303,94",EUR
+CL-00049,PG-0028,Brenvik Power Station,Gas,30 Mar 2023,Machinery breakdown,"1,822,934.57",EUR
+CL-00089,PG-0062,Caldspring Energy Storage,Battery,14 Sep 2023,Fire,"104.087,85",EUR
+CL-00022,PG-0094,Yarrow Point Energy Storage,BESS,09.11.2022,Machinery breakdown,"465,338.16",EUR
+CL-00058,PG 48,Eiderfeld Energy Storage,Battery,2023-05-03,Fire,384405,EUR
+CL-00161,,Rookhaven Offshore Wind Farm,Wind Offshore,2024-05-19,Storm,"16.178.773,45",EUR
+CL-00198,PG-0002,Rendal Solar Park,Solar PV,2024-12-21,Storm,"452.906,17",EUR
+CL-00188,PG-0040,Rookhaven Offshore Wind Farm,Offshore Wind,2025-02-28,Machinery breakdown,"16.474.568,83",EUR
+CL-00192,PG-0110,Kaldor Wind Farm,Onshore Wind,2024-11-15,Machinery breakdown,167762,EUR
+CL-00130,,Rendal Power Station,CCGT,2024-02-07,Machinery breakdown,"2,596,278.26",EUR
+CL-00038,PG-0091,Liesach Energy Storage,BESS,13.01.2023,Fire,"678,820.69",EUR
+CL-00158,PG-0031,Arnmoor Solar Park,Solar PV,28.04.2024,Machinery breakdown,"274,894.34",EUR
+CL-00210,PG-0078,Orrin Solar Park,Solar,2025-05-15,Storm,"398.907,97",EUR
+CL-00002,PG-0094,Yarrow Point Energy Storage,Battery,12 Mar 2022,Machinery breakdown,"613.919,54",EUR
+CL-00053,pg99,Orrin Power Station,CCGT,2023-04-08,Machinery breakdown,8664764,EUR
+CL-00150,,Zellbach Wind Farm,Onshore Wind,2025-11-11,Storm,"181.487,83",EUR
+CL-00131,PG-0024,Caldspring Wind Farm,Onshore Wind,2024-02-10,Storm,"1.436.484,06",EUR
+CL-00152,PG-0115,Frostham Offshore Wind Farm,Wind Offshore,17 Apr 2024,Fire,"18.381.371,96",EUR
+CL-00104,PG 3,Orrin Energy Storage,Battery Storage,17.10.2023,Machinery breakdown,"274.403,60",EUR
+CL-00100,PG-0070,Ashmere Offshore Wind Farm,offshore,2023-10-07,Fire,"9.476.384,97",EUR
+CL-00117,PG-0020,Zellbach Hydro Plant,Hydro,10 Dec 2023,Flood,"1,933,263.93",EUR
+CL-00088,PG-0033,Grevlund Offshore Wnid Farm,Offshore Wind,2023-09-12,Machinery breakdown,"8.276.839,40",EUR
+CL-00203,PG-0013,Zellbach Offshore Wind Farm,Offshore Wind,22 Jan 2025,Machinery breakdown,"15.948.587,81",EUR
+CL-00075,PG-0059,Kirnvale Energy Storage,BESS,2023-07-19,Battery thermal event,117594,EUR
+CL-00211,PG-0110,Kaldor Wind Farm,onshore wind,2025-05-26,Storm,"160.564,38",EUR
+CL-00122,PG-0013,Zellbach Offshore Wind Farm,Offshore Wind,07.01.2024,Machinery breakdown,26272622,EUR
+CL-00076,PG-0022,Varnholt Hydro Plant,Hydro,12 Nov 2022,Machinery breakdown,"1.446.972,35",EUR
+CL-00021,PG-0096,Velmora Wnd Farm,Onshore Wind,2022-11-01,Machinery breakdown,1065917,USD
+CL-00189,PG-0047,Hollbrook Solar Park,PV,03.11.2024,Machinery breakdown,"431,817.93",EUR
+CL-00072,PG 112,Quarnby Offshore Wind Farm,Offshore Wind,07.07.2023,Storm,"20,098,448.74",EUR
+CL-00107,PG-0033,Grevlund Offshore Wind Farm,Offshore Wind,26 Oct 2023,Fire,9585331,USD
+CL-00015,PG-0099,Orrin Power Station,Gas,21.09.2022,Machinery breakdown,3316135,EUR
+CL-00093,pg112,Quarnby Offshore Wind Farm,Offshore Wind,2023-09-25,Storm,"18.860.149,83",EUR
+CL-00180,PG-0052,Rookhaven Solar Park,Solar PV,2024-10-22,Storm,"345,326.15",EUR
+CL-00103,PG-0055,Ulmsted Hydro Plant,hydro,2023-10-15,Flood,"1.982.676,26",EUR
