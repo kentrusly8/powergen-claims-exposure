@@ -38,12 +38,27 @@ def clean_amounts(claims):
     return df
 
 
+DATE_FORMATS = ["%Y-%m-%d", "%d.%m.%Y", "%d %b %Y"]
+
+
+def clean_dates(claims):
+    """Add loss_date_clean: the loss date as a real date, whatever format it came in."""
+    df = claims.copy()
+    parsed = pd.Series(pd.NaT, index=df.index)
+    for fmt in DATE_FORMATS:
+        attempt = pd.to_datetime(df["loss_date"], format=fmt, errors="coerce")
+        parsed = parsed.fillna(attempt)
+    df["loss_date_clean"] = parsed
+    return df
+
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     claims = pd.read_sql("SELECT * FROM raw_claims", conn)
     conn.close()
 
     claims = clean_amounts(claims)
+    claims = clean_dates(claims)
 
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
@@ -54,6 +69,13 @@ def main():
     print("Missing amounts:", claims["amount_eur"].isna().sum())
     print(f"Smallest:        {claims['amount_eur'].min():,.2f}")
     print(f"Largest:         {claims['amount_eur'].max():,.2f}")
+
+    print()
+    print(claims[["loss_date", "loss_date_clean"]].sample(
+        6, random_state=2).to_string())
+    print("Missing dates:  ", claims["loss_date_clean"].isna().sum())
+    print("Earliest:       ", claims["loss_date_clean"].min().date())
+    print("Latest:         ", claims["loss_date_clean"].max().date())
 
 
 if __name__ == "__main__":
