@@ -33,6 +33,27 @@ def add_policy_info(claims, exposure):
     return df
 
 
+def summary_by_technology(claims, exposure):
+    """Per technology: premium, losses, frequency, severity and loss ratio."""
+    exp = exposure.copy()
+    exp["years"] = (
+        (exp["policy_end"] - exp["policy_start"]).dt.days + 1) / 365.25
+    exp["premium_eur"] = exp["annual_premium_eur"] * exp["years"]
+    side_a = exp.groupby("technology").agg(plants=("plant_id", "count"),
+                                           plant_years=("years", "sum"),
+                                           premium_eur=("premium_eur", "sum"))
+
+    covered = claims[claims["covered"]]
+    side_b = covered.groupby("technology").agg(claims=("claim_id", "count"),
+                                               net_loss_eur=("net_loss_eur", "sum"))
+
+    df = side_a.join(side_b).fillna(0)
+    df["frequency"] = df["claims"] / df["plant_years"]
+    df["severity_eur"] = df["net_loss_eur"] / df["claims"]
+    df["loss_ratio"] = df["net_loss_eur"] / df["premium_eur"]
+    return df.sort_values("loss_ratio", ascending=False)
+
+
 def main():
     claims, exposure = load()
     claims = add_policy_info(claims, exposure)
@@ -44,6 +65,10 @@ def main():
         f"Gross losses (covered):   {claims.loc[claims['covered'], 'amount_eur'].sum():,.0f}")
     print(
         f"Net losses (covered):     {claims.loc[claims['covered'], 'net_loss_eur'].sum():,.0f}")
+
+    pd.options.display.float_format = "{:,.2f}".format
+    print()
+    print(summary_by_technology(claims, exposure).to_string())
 
 
 if __name__ == "__main__":
