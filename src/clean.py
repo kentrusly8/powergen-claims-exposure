@@ -125,6 +125,16 @@ def main():
     # Clean exposure
     exposure = clean_exposure(exposure)
 
+    # Save
+    conn = sqlite3.connect(DB_PATH)
+    claims.to_sql("clean_claims", conn, if_exists="replace", index=False)
+    exposure.to_sql("clean_exposure", conn, if_exists="replace", index=False)
+    for table in ["clean_claims", "clean_exposure"]:
+        count = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
+        print(f"Saved {table}: {count} rows")
+    conn.close()
+    print()
+
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
                  ].sample(8, random_state=1).to_string())
