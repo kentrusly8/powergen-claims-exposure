@@ -48,7 +48,7 @@ with overview:
     )
     break_even = alt.Chart(pd.DataFrame({"x": [1]})).mark_rule(
         strokeDash=[4, 4]).encode(x="x:Q")
-    st.altair_chart(bars + break_even, use_container_width=True)
+    st.altair_chart(bars + break_even, width="stretch")
 
     st.dataframe(summary.style.format({
         "plant_years": "{:.1f}", "premium_eur": money, "net_loss_eur": money,
