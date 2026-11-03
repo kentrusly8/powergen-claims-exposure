@@ -52,6 +52,24 @@ def clean_dates(claims):
     return df
 
 
+TECH_MAP = {
+    "solar pv": "Solar PV", "pv": "Solar PV", "solar": "Solar PV",
+    "onshore wind": "Onshore Wind", "wind onshore": "Onshore Wind",
+    "offshore wind": "Offshore Wind", "wind offshore": "Offshore Wind", "offshore": "Offshore Wind",
+    "gas": "Gas", "gas turbine": "Gas", "ccgt": "Gas",
+    "hydro": "Hydro", "hydropower": "Hydro",
+    "battery storage": "Battery Storage", "bess": "Battery Storage", "battery": "Battery Storage",
+}
+
+
+def clean_technology(claims):
+    """Add technology_clean: one of the 6 standard technology names."""
+    df = claims.copy()
+    key = df["technology"].str.strip().str.lower()
+    df["technology_clean"] = key.map(TECH_MAP)
+    return df
+
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     claims = pd.read_sql("SELECT * FROM raw_claims", conn)
@@ -59,6 +77,7 @@ def main():
 
     claims = clean_amounts(claims)
     claims = clean_dates(claims)
+    claims = clean_technology(claims)
 
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
@@ -76,6 +95,12 @@ def main():
     print("Missing dates:  ", claims["loss_date_clean"].isna().sum())
     print("Earliest:       ", claims["loss_date_clean"].min().date())
     print("Latest:         ", claims["loss_date_clean"].max().date())
+
+    print()
+    print(claims["technology_clean"].value_counts().to_string())
+    unmapped = claims.loc[claims["technology_clean"].isna(),
+                          "technology"].unique()
+    print("Unmapped labels:", list(unmapped))
 
 
 if __name__ == "__main__":
