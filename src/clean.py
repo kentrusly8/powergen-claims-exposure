@@ -85,6 +85,9 @@ def clean_plant_ids(claims):
     df["plant_id_clean"] = df["plant_id"].apply(normalise_id)
     return df
 
+def remove_duplicates(claims):
+    """Drop rows that are exact copies of another row (the same claim entered twice)."""
+    return claims.drop_duplicates().reset_index(drop=True)
 
 def main():
     conn = sqlite3.connect(DB_PATH)
@@ -95,6 +98,8 @@ def main():
     claims = clean_dates(claims)
     claims = clean_technology(claims)
     claims = clean_plant_ids(claims)
+    rows_before = len(claims)
+    claims = remove_duplicates(claims)
 
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
@@ -126,6 +131,11 @@ def main():
           "plant_id_clean"]].head(6).to_string())
     print("Reformatted IDs:", reformatted.sum())
     print("Missing IDs:    ", claims["plant_id_clean"].isna().sum())
+
+    print()
+    print("Duplicates removed:", rows_before - len(claims))
+    print("Rows left:         ", len(claims))
+    print("Claim IDs unique:  ", claims["claim_id"].is_unique)
 
 
 if __name__ == "__main__":
