@@ -21,6 +21,7 @@ def get_data():
 
 
 matched, claims, exposure, summary = get_data()
+money = "€{:,.0f}"
 
 st.title("PowerGen Claims–Exposure")
 st.caption("Synthetic data only. No real plants, clients or insurers.")
@@ -49,7 +50,6 @@ with overview:
         strokeDash=[4, 4]).encode(x="x:Q")
     st.altair_chart(bars + break_even, use_container_width=True)
 
-    money = "€{:,.0f}"
     st.dataframe(summary.style.format({
         "plant_years": "{:.1f}", "premium_eur": money, "net_loss_eur": money,
         "largest_eur": money, "severity_eur": money, "frequency": "{:.2f}",
@@ -89,3 +89,34 @@ with lookup:
         table["loss_date_clean"] = table["loss_date_clean"].dt.date
         st.dataframe(table.style.format({"amount_eur": money, "net_loss_eur": money}),
                      hide_index=True)
+with review:
+    st.write(
+        "Claims that need a human decision before they can be used in the analysis.")
+
+    unmatched = matched[matched["match_method"] == "unmatched"]
+    st.subheader(f"No matching plant ({len(unmatched)})")
+    st.caption("No ID or name in the portfolio matched. The closest candidate is shown "
+               "for context; name scores below 0.90 are not accepted.")
+    st.dataframe(unmatched[["claim_id", "plant_id", "plant_name", "technology_clean",
+                            "amount_eur", "best_candidate", "name_score"]]
+                 .style.format({"amount_eur": money, "name_score": "{:.2f}"}),
+                 hide_index=True)
+
+    spot_check = matched[(matched["match_method"] == "name")
+                         & (matched["name_score"] < 1)]
+    st.subheader(f"Name matches to spot-check ({len(spot_check)})")
+    st.caption("Matched by name, but the spelling differs from the plant list.")
+    st.dataframe(spot_check[["claim_id", "plant_name", "best_candidate", "name_score"]]
+                 .style.format({"name_score": "{:.2f}"}),
+                 hide_index=True)
+
+    outside = claims[~claims["covered"]].copy()
+    st.subheader(f"Outside the policy period ({len(outside)})")
+    st.caption(
+        "Linked to a plant, but the loss date falls outside its policy, so it is not covered.")
+    for col in ["loss_date_clean", "policy_start", "policy_end"]:
+        outside[col] = outside[col].dt.date
+    st.dataframe(outside[["claim_id", "plant_name", "loss_date_clean",
+                          "policy_start", "policy_end", "amount_eur"]]
+                 .style.format({"amount_eur": money}),
+                 hide_index=True)
