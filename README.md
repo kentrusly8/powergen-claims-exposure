@@ -46,13 +46,15 @@ generate_data.py → load_to_db.py → clean.py → match.py → analyse.py → 
 ## How to run
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
 python src/run_pipeline.py   # rebuilds data and database from scratch
 streamlit run src/app.py     # opens the app in the browser
 ```
+
+Tested with Python 3.14.
 
 The data generator uses a fixed random seed, so every run produces identical results.
 
