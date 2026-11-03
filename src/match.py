@@ -46,6 +46,8 @@ def match_by_name(claims, exposure):
         name = df.at[i, "plant_name"]
         candidates = exposure[exposure["technology"]
                               == df.at[i, "technology_clean"]]
+        if candidates.empty:  # unknown technology: nothing to compare, leave unmatched
+            continue
         scores = candidates["plant_name"].apply(
             lambda plant: similarity(name, plant))
 
