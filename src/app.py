@@ -59,3 +59,33 @@ with overview:
     st.dataframe(largest_losses(claims).style.format({
         "net_loss_eur": money, "share_of_value_pct": "{:.2f} %",
     }), hide_index=True)
+
+with lookup:
+    choice = st.selectbox(
+        "Choose a plant", exposure["plant_name"].sort_values())
+    plant = exposure[exposure["plant_name"] == choice].iloc[0]
+
+    plant_claims = claims[claims["plant_id"] == plant["plant_id"]]
+    covered_claims = plant_claims[plant_claims["covered"]]
+    years = ((plant["policy_end"] - plant["policy_start"]).days + 1) / 365.25
+    premium = plant["annual_premium_eur"] * years
+    net_loss = covered_claims["net_loss_eur"].sum()
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Technology", plant["technology"])
+    col2.metric("Sum insured", f"€{plant['sum_insured_eur'] / 1e6:,.1f}m")
+    col3.metric("Premium (policy period)", f"€{premium:,.0f}")
+    col4.metric("Loss ratio", f"{net_loss / premium:.2f}")
+
+    st.caption(f"{plant['plant_id']} · {plant['country']} · {plant['capacity_mw']} MW · "
+               f"policy {plant['policy_start']:%d %b %Y} – {plant['policy_end']:%d %b %Y}")
+
+    st.subheader(f"Claims ({len(plant_claims)})")
+    if plant_claims.empty:
+        st.info("No claims for this plant during its policy period.")
+    else:
+        table = plant_claims[["claim_id", "loss_date_clean", "cause", "amount_eur",
+                              "net_loss_eur", "covered", "match_method"]].sort_values("loss_date_clean")
+        table["loss_date_clean"] = table["loss_date_clean"].dt.date
+        st.dataframe(table.style.format({"amount_eur": money, "net_loss_eur": money}),
+                     hide_index=True)
