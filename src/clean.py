@@ -85,25 +85,50 @@ def clean_plant_ids(claims):
     df["plant_id_clean"] = df["plant_id"].apply(normalise_id)
     return df
 
+
 def remove_duplicates(claims):
     """Drop rows that are exact copies of another row (the same claim entered twice)."""
     return claims.drop_duplicates().reset_index(drop=True)
 
+
+def clean_exposure(exposure):
+    """Convert text columns to numbers and dates, and give every capacity in MW."""
+    df = exposure.copy()
+
+    capacity = df["capacity"].astype(float)
+    in_kw = df["capacity_unit"] == "kW"
+    capacity[in_kw] = capacity[in_kw] / 1000
+    df["capacity_mw"] = capacity.round(1)
+
+    for col in ["sum_insured_eur", "deductible_eur", "annual_premium_eur"]:
+        df[col] = df[col].astype(float)
+    df["commissioning_year"] = df["commissioning_year"].astype(int)
+    df["policy_start"] = pd.to_datetime(df["policy_start"])
+    df["policy_end"] = pd.to_datetime(df["policy_end"])
+    return df
+
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     claims = pd.read_sql("SELECT * FROM raw_claims", conn)
+    exposure = pd.read_sql("SELECT * FROM raw_exposure", conn)
     conn.close()
 
+    # Clean claims
+    rows_before = len(claims)
+    claims = remove_duplicates(claims)
     claims = clean_amounts(claims)
     claims = clean_dates(claims)
     claims = clean_technology(claims)
     claims = clean_plant_ids(claims)
-    rows_before = len(claims)
-    claims = remove_duplicates(claims)
+
+    # Clean exposure
+    exposure = clean_exposure(exposure)
 
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
                  ].sample(8, random_state=1).to_string())
+
     print()
     print("Rows:           ", len(claims))
     print("USD rows:       ", (claims["currency"] == "USD").sum())
@@ -136,6 +161,12 @@ def main():
     print("Duplicates removed:", rows_before - len(claims))
     print("Rows left:         ", len(claims))
     print("Claim IDs unique:  ", claims["claim_id"].is_unique)
+
+    print()
+    print("Plants:     ", len(exposure))
+    print("kW rows:    ", (exposure["capacity_unit"] == "kW").sum())
+    print(exposure.groupby("technology")[
+          "capacity_mw"].agg(["min", "max"]).to_string())
 
 
 if __name__ == "__main__":
