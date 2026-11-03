@@ -1,9 +1,10 @@
 """Clean the raw tables: convert text to proper types and fix inconsistent values."""
 
+import re
 import sqlite3
 from pathlib import Path
+
 import pandas as pd
-import re
 
 
 ROOT = Path(__file__).resolve().parent.parent
