@@ -2,8 +2,9 @@
 
 import sqlite3
 from pathlib import Path
-
 import pandas as pd
+import re
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "powergen.db"
@@ -70,6 +71,21 @@ def clean_technology(claims):
     return df
 
 
+def normalise_id(text):
+    """Turn 'pg12', 'PG 12' or 'PG-0012' into 'PG-0012'. Empty stays empty."""
+    digits = re.sub(r"\D", "", text)
+    if digits == "":
+        return None
+    return f"PG-{int(digits):04d}"
+
+
+def clean_plant_ids(claims):
+    """Add plant_id_clean: the plant ID in the standard 'PG-0000' format."""
+    df = claims.copy()
+    df["plant_id_clean"] = df["plant_id"].apply(normalise_id)
+    return df
+
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     claims = pd.read_sql("SELECT * FROM raw_claims", conn)
@@ -78,6 +94,7 @@ def main():
     claims = clean_amounts(claims)
     claims = clean_dates(claims)
     claims = clean_technology(claims)
+    claims = clean_plant_ids(claims)
 
     # Checks
     print(claims[["claim_amount", "currency", "amount_eur"]
@@ -101,6 +118,14 @@ def main():
     unmapped = claims.loc[claims["technology_clean"].isna(),
                           "technology"].unique()
     print("Unmapped labels:", list(unmapped))
+
+    print()
+    reformatted = claims["plant_id"].ne("") & (
+        claims["plant_id"] != claims["plant_id_clean"])
+    print(claims.loc[reformatted, ["plant_id",
+          "plant_id_clean"]].head(6).to_string())
+    print("Reformatted IDs:", reformatted.sum())
+    print("Missing IDs:    ", claims["plant_id_clean"].isna().sum())
 
 
 if __name__ == "__main__":
