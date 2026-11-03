@@ -53,23 +53,25 @@ def summary_by_technology(claims, exposure):
     df["loss_ratio"] = df["net_loss_eur"] / df["premium_eur"]
     return df.sort_values("loss_ratio", ascending=False)
 
-
 def main():
     claims, exposure = load()
     claims = add_policy_info(claims, exposure)
+    covered = claims[claims["covered"]]
 
     print("Claims linked to a plant:", len(claims))
-    print("Covered:                 ", claims["covered"].sum())
-    print("Outside policy period:   ", (~claims["covered"]).sum())
-    print(
-        f"Gross losses (covered):   {claims.loc[claims['covered'], 'amount_eur'].sum():,.0f}")
-    print(
-        f"Net losses (covered):     {claims.loc[claims['covered'], 'net_loss_eur'].sum():,.0f}")
+    print("Covered:                 ", len(covered))
+    print("Outside policy period:   ", len(claims) - len(covered))
+    print(f"Gross losses (covered):   {covered['amount_eur'].sum():,.0f}")
+    print(f"Net losses (covered):     {covered['net_loss_eur'].sum():,.0f}")
+
+    summary = summary_by_technology(claims, exposure)
+    total_premium = summary["premium_eur"].sum()
+    print(f"Total premium:            {total_premium:,.0f}")
+    print(f"Portfolio loss ratio:     {summary['net_loss_eur'].sum() / total_premium:.2f}")
 
     pd.options.display.float_format = "{:,.2f}".format
     print()
-    print(summary_by_technology(claims, exposure).to_string())
-
-
+    print(summary.to_string())
+    
 if __name__ == "__main__":
     main()
