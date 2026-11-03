@@ -82,13 +82,14 @@ with lookup:
 
     st.subheader(f"Claims ({len(plant_claims)})")
     if plant_claims.empty:
-        st.info("No claims for this plant during its policy period.")
+        st.info("No claims linked to this plant.")
     else:
         table = plant_claims[["claim_id", "loss_date_clean", "cause", "amount_eur",
                               "net_loss_eur", "covered", "match_method"]].sort_values("loss_date_clean")
         table["loss_date_clean"] = table["loss_date_clean"].dt.date
         st.dataframe(table.style.format({"amount_eur": money, "net_loss_eur": money}),
                      hide_index=True)
+
 with review:
     st.write(
         "Claims that need a human decision before they can be used in the analysis.")
