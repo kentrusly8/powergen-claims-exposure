@@ -27,7 +27,9 @@ def add_policy_info(claims, exposure):
     df = claims.merge(exposure[cols], left_on="matched_plant_id", right_on="plant_id",
                       how="inner", suffixes=("_claim", ""))
 
-    df["net_loss_eur"] = df["amount_eur"] - df["deductible_eur"]
+    # Net loss can't be negative, and the insurer never pays more than the sum insured
+    df["net_loss_eur"] = (df["amount_eur"] - df["deductible_eur"]).clip(
+        lower=0, upper=df["sum_insured_eur"])
     df["covered"] = df["loss_date_clean"].between(
         df["policy_start"], df["policy_end"])
     return df
