@@ -1,5 +1,7 @@
 """Streamlit app: portfolio overview, plant lookup and review queue."""
 
+import altair as alt
+import pandas as pd
 import streamlit as st
 
 from analyse import (add_policy_info, largest_losses, load,
@@ -36,8 +38,24 @@ with overview:
     col3.metric("Loss ratio", f"{total_loss / total_premium:.2f}")
 
     st.subheader("Loss ratio by technology")
-    st.bar_chart(summary["loss_ratio"])
-    st.dataframe(summary)
+    chart_data = summary.reset_index()
+    bars = alt.Chart(chart_data).mark_bar().encode(
+        x=alt.X("loss_ratio:Q", title="Loss ratio"),
+        y=alt.Y("technology:N", sort="-x", title=None),
+        color=alt.condition(alt.datum.loss_ratio > 1,
+                            alt.value("#e45756"), alt.value("#4c78a8")),
+    )
+    break_even = alt.Chart(pd.DataFrame({"x": [1]})).mark_rule(
+        strokeDash=[4, 4]).encode(x="x:Q")
+    st.altair_chart(bars + break_even, use_container_width=True)
 
+    money = "€{:,.0f}"
+    st.dataframe(summary.style.format({
+        "plant_years": "{:.1f}", "premium_eur": money, "net_loss_eur": money,
+        "largest_eur": money, "severity_eur": money, "frequency": "{:.2f}",
+        "loss_ratio": "{:.2f}", "lr_without_top2": "{:.2f}",
+    }))
     st.subheader("Largest losses")
-    st.dataframe(largest_losses(claims), hide_index=True)
+    st.dataframe(largest_losses(claims).style.format({
+        "net_loss_eur": money, "share_of_value_pct": "{:.2f} %",
+    }), hide_index=True)
