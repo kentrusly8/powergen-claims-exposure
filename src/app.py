@@ -58,10 +58,12 @@ with overview:
         "loss_ratio": "{:.2f}", "lr_without_top1": "{:.2f}", "lr_without_top2": "{:.2f}",
     }))
     st.subheader("Largest losses")
-    st.dataframe(largest_losses(claims).style.format({
-        "sum_insured_eur_m": eur_m, "net_loss_eur": eur, "share_of_value_pct": pct,
-    }), hide_index=True)
-
+    st.dataframe(largest_losses(claims)
+                 .rename(columns={"sum_insured_eur_m": "sum_insured_eur"})
+                 .style.format({
+                     "sum_insured_eur": eur_m, "net_loss_eur": eur,
+                     "share_of_value_pct": pct,
+                 }), hide_index=True)
 with lookup:
     choice = st.selectbox(
         "Choose a plant", exposure["plant_name"].sort_values())
