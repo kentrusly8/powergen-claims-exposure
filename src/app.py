@@ -4,8 +4,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from analyse import (add_policy_info, largest_losses, load,
-                     lr_without_top, summary_by_technology)
+from analyse import add_policy_info, largest_losses, load, summary_by_technology
 
 st.set_page_config(page_title="PowerGen Claims–Exposure", layout="wide")
 
@@ -16,12 +15,14 @@ def get_data():
     matched, exposure = load()
     claims = add_policy_info(matched, exposure)
     summary = summary_by_technology(claims, exposure)
-    summary["lr_without_top1"] = lr_without_top(claims, summary, n=1)
-    summary["lr_without_top2"] = lr_without_top(claims, summary, n=2)
     return matched, claims, exposure, summary
 
 
-matched, claims, exposure, summary = get_data()
+try:
+    matched, claims, exposure, summary = get_data()
+except RuntimeError as error:  # no database yet: show the message, stop the page
+    st.error(str(error))
+    st.stop()
 money = "€{:,.0f}"
 
 st.title("PowerGen Claims–Exposure")
@@ -62,7 +63,7 @@ with overview:
         "net_loss_eur": lambda x: f"€{x / 1e6:,.2f}m",
         "share_of_value_pct": "{:.2f} %",
     }), hide_index=True)
-    
+
 with lookup:
     choice = st.selectbox(
         "Choose a plant", exposure["plant_name"].sort_values())
@@ -70,8 +71,7 @@ with lookup:
 
     plant_claims = claims[claims["plant_id"] == plant["plant_id"]]
     covered_claims = plant_claims[plant_claims["covered"]]
-    years = ((plant["policy_end"] - plant["policy_start"]).days + 1) / 365.25
-    premium = plant["annual_premium_eur"] * years
+    premium = plant["premium_eur"]
     net_loss = covered_claims["net_loss_eur"].sum()
 
     col1, col2, col3, col4 = st.columns(4)

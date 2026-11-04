@@ -10,7 +10,7 @@ STEPS = ["generate_data.py", "load_to_db.py", "clean.py", "match.py", "analyse.p
 
 def main():
     for step in STEPS:
-        print(f"\n=== {step} ===")
+        print(f"\n=== {step} ===", flush=True)  # show the header before the step runs
         subprocess.run([sys.executable, str(SRC / step)], check=True)
     print("\nPipeline finished. Start the app with: streamlit run src/app.py")
 

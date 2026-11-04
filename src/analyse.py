@@ -1,6 +1,7 @@
 """Analyse the matched claims: loss ratio, frequency and severity by technology."""
 
 import sqlite3
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -8,17 +9,37 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "powergen.db"
 OUT_DIR = ROOT / "output"
+RUN_FIRST = "No results yet. Run the pipeline first: python src/run_pipeline.py"
+
+
+def add_premium(exposure):
+    """Add each plant's policy length in years and the premium for that period."""
+    df = exposure.copy()
+    df["years"] = ((df["policy_end"] - df["policy_start"]).dt.days + 1) / 365.25
+    df["premium_eur"] = df["annual_premium_eur"] * df["years"]
+    return df
 
 
 def load():
-    """Read matched claims and exposure, with dates as real dates."""
+    """Read matched claims and exposure, with dates as real dates.
+
+    Raises RuntimeError with a clear message if the pipeline has not been run yet.
+    """
+    if not DB_PATH.exists():  # check first: connecting would create an empty file
+        raise RuntimeError(RUN_FIRST)
     conn = sqlite3.connect(DB_PATH)
-    claims = pd.read_sql("SELECT * FROM matched_claims", conn,
-                         parse_dates=["loss_date_clean"])
-    exposure = pd.read_sql("SELECT * FROM clean_exposure", conn,
-                           parse_dates=["policy_start", "policy_end"])
-    conn.close()
-    return claims, exposure
+    try:
+        claims = pd.read_sql("SELECT * FROM matched_claims", conn,
+                             parse_dates=["loss_date_clean"])
+        exposure = pd.read_sql("SELECT * FROM clean_exposure", conn,
+                               parse_dates=["policy_start", "policy_end"])
+    except pd.errors.DatabaseError:  # a table is missing: a step has not run
+        raise RuntimeError(RUN_FIRST) from None
+    finally:
+        conn.close()  # runs whether reading worked or not
+    if claims.empty or exposure.empty:
+        raise RuntimeError(RUN_FIRST)
+    return claims, add_premium(exposure)
 
 
 def add_policy_info(claims, exposure):
@@ -37,14 +58,13 @@ def add_policy_info(claims, exposure):
 
 
 def summary_by_technology(claims, exposure):
-    """Per technology: premium, losses, frequency, severity and loss ratio."""
-    exp = exposure.copy()
-    exp["years"] = (
-        (exp["policy_end"] - exp["policy_start"]).dt.days + 1) / 365.25
-    exp["premium_eur"] = exp["annual_premium_eur"] * exp["years"]
-    side_a = exp.groupby("technology").agg(plants=("plant_id", "count"),
-                                           plant_years=("years", "sum"),
-                                           premium_eur=("premium_eur", "sum"))
+    """Per technology: premium, losses, frequency, severity and loss ratio.
+
+    Also the loss ratio without the 1 and 2 largest losses of each technology.
+    """
+    side_a = exposure.groupby("technology").agg(plants=("plant_id", "count"),
+                                                plant_years=("years", "sum"),
+                                                premium_eur=("premium_eur", "sum"))
 
     covered = claims[claims["covered"]]
     side_b = covered.groupby("technology").agg(claims=("claim_id", "count"),
@@ -55,6 +75,8 @@ def summary_by_technology(claims, exposure):
     df["frequency"] = df["claims"] / df["plant_years"]
     df["severity_eur"] = df["net_loss_eur"] / df["claims"]
     df["loss_ratio"] = df["net_loss_eur"] / df["premium_eur"]
+    df["lr_without_top1"] = lr_without_top(claims, df, n=1)
+    df["lr_without_top2"] = lr_without_top(claims, df, n=2)
     return df.sort_values("loss_ratio", ascending=False)
 
 
@@ -142,16 +164,19 @@ def save_results(matched, claims, summary):
         }),
     ])
 
+    # lineterminator="\n": same line endings on every OS, so files match byte for byte
     OUT_DIR.mkdir(exist_ok=True)
-    portfolio.to_csv(OUT_DIR / "1_portfolio.csv", index=False)
-    by_tech.to_csv(OUT_DIR / "2_by_technology.csv", index=False)
-    largest.to_csv(OUT_DIR / "3_largest_losses.csv", index=False)
-    review.to_csv(OUT_DIR / "4_review_queue.csv", index=False)
+    portfolio.to_csv(OUT_DIR / "1_portfolio.csv", index=False, lineterminator="\n")
+    by_tech.to_csv(OUT_DIR / "2_by_technology.csv", index=False, lineterminator="\n")
+    largest.to_csv(OUT_DIR / "3_largest_losses.csv", index=False, lineterminator="\n")
+    review.to_csv(OUT_DIR / "4_review_queue.csv", index=False, lineterminator="\n")
 
 
 def main():
-
-    matched, exposure = load()
+    try:
+        matched, exposure = load()
+    except RuntimeError as error:
+        sys.exit(str(error))  # print the message and stop, without a traceback
     claims = add_policy_info(matched, exposure)
     covered = claims[claims["covered"]]
 
@@ -162,8 +187,6 @@ def main():
     print(f"Net losses (covered):     {covered['net_loss_eur'].sum():,.0f}")
 
     summary = summary_by_technology(claims, exposure)
-    summary["lr_without_top1"] = lr_without_top(claims, summary, n=1)
-    summary["lr_without_top2"] = lr_without_top(claims, summary, n=2)
 
     total_premium = summary["premium_eur"].sum()
     print(f"Total premium:            {total_premium:,.0f}")
@@ -188,8 +211,8 @@ def main():
             f"Largest losses: {tech} (loss ratio {summary.loc[tech, 'loss_ratio']:.2f})")
         print(largest_losses(tech_claims, n=3).to_string(index=False))
 
-    save_results(matched, claims, summary)                          # NEW
-    print(f"\nResults saved to {OUT_DIR.relative_to(ROOT)}/")      # NEW
+    save_results(matched, claims, summary)
+    print(f"\nResults saved to {OUT_DIR.relative_to(ROOT)}/")
 
 
 if __name__ == "__main__":

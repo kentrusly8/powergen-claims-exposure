@@ -6,8 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
-
-ROOT = Path(__file__).resolve().parent.parent
+ROOT =Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "powergen.db"
 USD_PER_EUR = 1.10  # same fixed rate the generator used (synthetic assumption)
 

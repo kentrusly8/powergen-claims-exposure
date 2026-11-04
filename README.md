@@ -45,16 +45,34 @@ generate_data.py → load_to_db.py → clean.py → match.py → analyse.py → 
 
 ## How to run
 
+Requires Python 3.12 or newer (tested with 3.13 and 3.14).
+
+Create and activate a virtual environment, from the project folder:
+
 ```bash
+# macOS / Linux
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
 
+# Windows (Command Prompt or PowerShell)
+py -m venv .venv
+.venv\Scripts\activate
+```
+
+If PowerShell says running scripts is disabled, run
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once, then activate again.
+
+Then, on any system:
+
+```bash
+pip install -r requirements.txt
 python src/run_pipeline.py   # rebuilds data and database from scratch
 streamlit run src/app.py     # opens the app in the browser
 ```
 
-Tested with Python 3.14.
+On a Mac you need macOS 12 or newer. On Windows laptops with an ARM processor,
+install the x64 version of Python: one of Streamlit's packages (pyarrow) has no
+Windows ARM version.
 
 The data generator uses a fixed random seed, so every run produces identical results.
 
@@ -63,6 +81,7 @@ The data generator uses a fixed random seed, so every run produces identical res
 ```
 data/raw/        generated CSVs: exposure, claims and the matching answer key
 docs/            data dictionary
+output/          final results as CSV files, written by analyse.py
 sql/             exploratory SQL queries on the raw tables
 src/
   generate_data.py   synthetic portfolio and messy claims
