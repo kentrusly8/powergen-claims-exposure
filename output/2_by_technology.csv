@@ -1,0 +1,7 @@
+Technology,Plants,Plant-years,Premium (EUR m),Covered claims,Net losses (EUR m),Frequency (claims per plant-year),Severity (EUR k per claim),Loss ratio,Loss ratio without largest claim,Loss ratio without 2 largest claims
+Solar PV,29,46.0,4.86,44,9.29,0.96,211,1.91,1.25,0.64
+Gas,11,16.0,16.68,18,16.28,1.12,905,0.98,0.63,0.48
+Battery Storage,26,40.0,11.16,54,8.35,1.35,155,0.75,0.61,0.53
+Offshore Wind,22,34.0,255.86,47,166.19,1.38,3536,0.65,0.57,0.52
+Onshore Wind,16,23.0,8.25,22,4.04,0.96,184,0.49,0.42,0.36
+Hydro,16,26.0,14.85,15,4.91,0.58,327,0.33,0.25,0.19
