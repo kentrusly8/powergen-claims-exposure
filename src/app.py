@@ -59,9 +59,10 @@ with overview:
     st.subheader("Largest losses")
     st.dataframe(largest_losses(claims).style.format({
         "sum_insured_eur_m": "€{:,.0f}m",
-        "net_loss_eur": money, "share_of_value_pct": "{:.2f} %",
+        "net_loss_eur": lambda x: f"€{x / 1e6:,.2f}m",
+        "share_of_value_pct": "{:.2f} %",
     }), hide_index=True)
-
+    
 with lookup:
     choice = st.selectbox(
         "Choose a plant", exposure["plant_name"].sort_values())
