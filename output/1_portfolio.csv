@@ -1,0 +1,11 @@
+Measure,Value
+Plants insured,120
+Claims (after removing duplicates),214
+Claims matched to a plant,210
+Claims with no matching plant,4
+Claims outside the policy period,10
+Covered claims,200
+Premium (EUR m),311.7
+Gross losses (EUR m),793.4
+Net losses after deductible (EUR m),209.1
+Loss ratio,0.67

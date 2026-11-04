@@ -1,0 +1,15 @@
+Claim,Plant,Reason,Detail,Amount (EUR k)
+CL-00190,Halvsund Wind Farm,No matching plant in the portfolio,Closest plant: Kaldor Wind Farm,411
+CL-00154,Tessgard Power Station,No matching plant in the portfolio,Closest plant: Tarsel Power Station,765
+CL-00071,CORVANE ENERGY STORAGE,No matching plant in the portfolio,Closest plant: Ostrand Energy Storage,1820
+CL-00173,Norrbeck Solar Park,No matching plant in the portfolio,Closest plant: Orrin Solar Park,797
+CL-00080,Frostham Energy Storage,Loss date outside the policy period,"Loss 2024-11-20, policy 2022-10-01 to 2024-09-30",406
+CL-00076,Varnholt Hydro Plant,Loss date outside the policy period,"Loss 2022-11-12, policy 2023-02-01 to 2024-01-31",1447
+CL-00141,Nordhal Energy Storage,Loss date outside the policy period,"Loss 2025-02-26, policy 2023-10-01 to 2024-09-30",1069
+CL-00165,Kestrel Bay Offshore Wind Farm,Loss date outside the policy period,"Loss 2022-05-12, policy 2022-08-01 to 2024-07-31",5812
+CL-00179,Orrin Energy Storage,Loss date outside the policy period,"Loss 2022-07-27, policy 2022-12-01 to 2024-11-30",211
+CL-00133,Falkweil Energy Storage,Loss date outside the policy period,"Loss 2022-08-15, policy 2022-12-01 to 2024-11-30",484
+CL-00168,Yarrow Point Power Station,Loss date outside the policy period,"Loss 2025-07-31, policy 2023-04-01 to 2025-03-31",1709
+CL-00191,Caldspring Wind Farm,Loss date outside the policy period,"Loss 2023-01-11, policy 2023-06-01 to 2025-05-31",1118
+CL-00188,Rookhaven Offshore Wind Farm,Loss date outside the policy period,"Loss 2025-02-28, policy 2023-02-01 to 2025-01-31",16475
+CL-00150,Zellbach Wind Farm,Loss date outside the policy period,"Loss 2025-11-11, policy 2023-07-01 to 2025-06-30",181

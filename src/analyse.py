@@ -7,6 +7,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "powergen.db"
+OUT_DIR = ROOT / "output"
 
 
 def load():
@@ -74,9 +75,82 @@ def lr_without_top(claims, summary, n):
     return (summary["net_loss_eur"] - top_n) / summary["premium_eur"]
 
 
+def save_results(matched, claims, summary):
+    """Save the final answers as readable CSV files in output/."""
+    covered = claims[claims["covered"]]
+    outside = claims[~claims["covered"]]
+    unmatched = matched[matched["match_method"] == "unmatched"]
+    premium = summary["premium_eur"].sum()
+    net_loss = covered["net_loss_eur"].sum()
+
+    portfolio = pd.DataFrame([
+        ("Plants insured", str(summary["plants"].sum())),
+        ("Claims (after removing duplicates)", str(len(matched))),
+        ("Claims matched to a plant", str(len(matched) - len(unmatched))),
+        ("Claims with no matching plant", str(len(unmatched))),
+        ("Claims outside the policy period", str(len(outside))),
+        ("Covered claims", str(len(covered))),
+        ("Premium (EUR m)", f"{premium / 1e6:,.1f}"),
+        ("Gross losses (EUR m)", f"{covered['amount_eur'].sum() / 1e6:,.1f}"),
+        ("Net losses after deductible (EUR m)", f"{net_loss / 1e6:,.1f}"),
+        ("Loss ratio", f"{net_loss / premium:.2f}"),
+    ], columns=["Measure", "Value"])
+
+    by_tech = pd.DataFrame({
+        "Technology": summary.index,
+        "Plants": summary["plants"],
+        "Plant-years": summary["plant_years"].round(1),
+        "Premium (EUR m)": (summary["premium_eur"] / 1e6).round(2),
+        "Covered claims": summary["claims"].astype(int),
+        "Net losses (EUR m)": (summary["net_loss_eur"] / 1e6).round(2),
+        "Frequency (claims per plant-year)": summary["frequency"].round(2),
+        "Severity (EUR k per claim)": (summary["severity_eur"] / 1e3).round(0).astype(int),
+        "Loss ratio": summary["loss_ratio"].round(2),
+        "Loss ratio without largest claim": summary["lr_without_top1"].round(2),
+        "Loss ratio without 2 largest claims": summary["lr_without_top2"].round(2),
+    })
+
+    top = largest_losses(claims)
+    largest = pd.DataFrame({
+        "Claim": top["claim_id"],
+        "Plant": top["plant_name"],
+        "Technology": top["technology"],
+        "Cause": top["cause"],
+        "Net loss (EUR m)": (top["net_loss_eur"] / 1e6).round(2),
+        "Share of plant value (%)": top["share_of_value_pct"].round(2),
+    })
+
+    review = pd.concat([
+        pd.DataFrame({
+            "Claim": unmatched["claim_id"],
+            "Plant": unmatched["plant_name"],
+            "Reason": "No matching plant in the portfolio",
+            "Detail": "Closest plant: " + unmatched["best_candidate"].fillna("none"),
+            "Amount (EUR k)": (unmatched["amount_eur"] / 1e3).round(0).astype(int),
+        }),
+        pd.DataFrame({
+            "Claim": outside["claim_id"],
+            "Plant": outside["plant_name"],
+            "Reason": "Loss date outside the policy period",
+            "Detail": "Loss " + outside["loss_date_clean"].dt.strftime("%Y-%m-%d")
+                      + ", policy " +
+            outside["policy_start"].dt.strftime("%Y-%m-%d")
+            + " to " + outside["policy_end"].dt.strftime("%Y-%m-%d"),
+            "Amount (EUR k)": (outside["amount_eur"] / 1e3).round(0).astype(int),
+        }),
+    ])
+
+    OUT_DIR.mkdir(exist_ok=True)
+    portfolio.to_csv(OUT_DIR / "1_portfolio.csv", index=False)
+    by_tech.to_csv(OUT_DIR / "2_by_technology.csv", index=False)
+    largest.to_csv(OUT_DIR / "3_largest_losses.csv", index=False)
+    review.to_csv(OUT_DIR / "4_review_queue.csv", index=False)
+
+
 def main():
-    claims, exposure = load()
-    claims = add_policy_info(claims, exposure)
+
+    matched, exposure = load()
+    claims = add_policy_info(matched, exposure)
     covered = claims[claims["covered"]]
 
     print("Claims linked to a plant:", len(claims))
@@ -111,6 +185,9 @@ def main():
         print(
             f"Largest losses: {tech} (loss ratio {summary.loc[tech, 'loss_ratio']:.2f})")
         print(largest_losses(tech_claims, n=3).to_string(index=False))
+
+    save_results(matched, claims, summary)                          # NEW
+    print(f"\nResults saved to {OUT_DIR.relative_to(ROOT)}/")      # NEW
 
 
 if __name__ == "__main__":
