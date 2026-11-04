@@ -298,12 +298,13 @@ def main():
     clean_claims = make_clean_claims(rng, exposure)
     claims = make_messy(clean_claims, exposure, rng)
 
-    exposure.to_csv(OUT_DIR / "exposure.csv", index=False)
-    claims.to_csv(OUT_DIR / "claims.csv", index=False)
+    # lineterminator="\n": same line endings on every OS, so files match byte for byte
+    exposure.to_csv(OUT_DIR / "exposure.csv", index=False, lineterminator="\n")
+    claims.to_csv(OUT_DIR / "claims.csv", index=False, lineterminator="\n")
 
     # Answer key: the true plant for each claim. Used only to check the matcher later.
     clean_claims[["claim_id", "plant_id"]].rename(columns={"plant_id": "true_plant_id"}) \
-        .to_csv(OUT_DIR / "claims_answer_key.csv", index=False)
+        .to_csv(OUT_DIR / "claims_answer_key.csv", index=False, lineterminator="\n")
 
     print(f"exposure.csv: {len(exposure)} plants")
     print(

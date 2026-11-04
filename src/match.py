@@ -6,8 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
-
-ROOT = Path(__file__).resolve().parent.parent
+ROOT =Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "powergen.db"
 ANSWER_KEY = ROOT / "data" / "raw" / "claims_answer_key.csv"
 NAME_THRESHOLD = 0.90  # below this, a name match is too uncertain and goes to review
@@ -48,8 +47,9 @@ def match_by_name(claims, exposure):
                               == df.at[i, "technology_clean"]]
         if candidates.empty:  # unknown technology: nothing to compare, leave unmatched
             continue
+        # .apply() runs the lambda right away, so it always uses this loop's name
         scores = candidates["plant_name"].apply(
-            lambda plant: similarity(name, plant))
+            lambda plant: similarity(name, plant))  # noqa: B023
 
         best = scores.idxmax()
         df.at[i, "name_score"] = round(scores[best], 3)
