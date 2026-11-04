@@ -15,7 +15,8 @@ RUN_FIRST = "No results yet. Run the pipeline first: python src/run_pipeline.py"
 def add_premium(exposure):
     """Add each plant's policy length in years and the premium for that period."""
     df = exposure.copy()
-    df["years"] = ((df["policy_end"] - df["policy_start"]).dt.days + 1) / 365.25
+    df["years"] = (
+        (df["policy_end"] - df["policy_start"]).dt.days + 1) / 365.25
     df["premium_eur"] = df["annual_premium_eur"] * df["years"]
     return df
 
@@ -166,10 +167,44 @@ def save_results(matched, claims, summary):
 
     # lineterminator="\n": same line endings on every OS, so files match byte for byte
     OUT_DIR.mkdir(exist_ok=True)
-    portfolio.to_csv(OUT_DIR / "1_portfolio.csv", index=False, lineterminator="\n")
-    by_tech.to_csv(OUT_DIR / "2_by_technology.csv", index=False, lineterminator="\n")
-    largest.to_csv(OUT_DIR / "3_largest_losses.csv", index=False, lineterminator="\n")
-    review.to_csv(OUT_DIR / "4_review_queue.csv", index=False, lineterminator="\n")
+    portfolio.to_csv(OUT_DIR / "1_portfolio.csv",
+                     index=False, lineterminator="\n")
+    by_tech.to_csv(OUT_DIR / "2_by_technology.csv",
+                   index=False, lineterminator="\n")
+    largest.to_csv(OUT_DIR / "3_largest_losses.csv",
+                   index=False, lineterminator="\n")
+    review.to_csv(OUT_DIR / "4_review_queue.csv",
+                  index=False, lineterminator="\n")
+
+
+def eur(x):
+    """Euros for display: €19.66m, €211k."""
+    if abs(x) >= 1e6:
+        return f"€{x/1e6:,.2f}m"
+    return f"€{x/1e3:,.0f}k"
+
+
+def eur_m(x):
+    """A value already in millions of euros, for display: €2,613m."""
+    return f"€{x:,.0f}m"
+
+
+def pct(x):
+    """A percentage for display: 0.75%."""
+    return f"{x:.2f}%"
+
+
+def fmt_for_print(df):
+    """Display copy of a table with euro and % columns formatted; df stays numeric."""
+    out = df.copy()
+    for col in out.columns:
+        if col == "sum_insured_eur_m":  # already in millions
+            out[col] = out[col].map(eur_m)
+        elif col.endswith("_eur"):
+            out[col] = out[col].map(eur)
+        elif col.endswith("_pct"):
+            out[col] = out[col].map(pct)
+    return out
 
 
 def main():
@@ -183,13 +218,13 @@ def main():
     print("Claims linked to a plant:", len(claims))
     print("Covered:                 ", len(covered))
     print("Outside policy period:   ", len(claims) - len(covered))
-    print(f"Gross losses (covered):   {covered['amount_eur'].sum():,.0f}")
-    print(f"Net losses (covered):     {covered['net_loss_eur'].sum():,.0f}")
+    print(f"Gross losses (covered):   {eur(covered['amount_eur'].sum())}")
+    print(f"Net losses (covered):     {eur(covered['net_loss_eur'].sum())}")
 
     summary = summary_by_technology(claims, exposure)
 
     total_premium = summary["premium_eur"].sum()
-    print(f"Total premium:            {total_premium:,.0f}")
+    print(f"Total premium:            {eur(total_premium)}")
     print(
         f"Portfolio loss ratio:     {summary['net_loss_eur'].sum() / total_premium:.2f}")
 
@@ -197,19 +232,19 @@ def main():
     print()
     print("Results by technology (sorted from worst to best loss ratio)")
     print("frequency = claims per plant-year | severity = average net loss per claim")
-    print(summary.to_string())
+    print(fmt_for_print(summary).to_string())
 
     print()
     print("Top 10 largest losses in the whole portfolio")
     print("share_of_value_pct = net loss as % of the plant's sum insured")
-    print(largest_losses(claims).to_string(index=False))
+    print(fmt_for_print(largest_losses(claims)).to_string(index=False))
 
     for tech in summary.index:
         tech_claims = claims[claims["technology"] == tech]
         print()
         print(
             f"Largest losses: {tech} (loss ratio {summary.loc[tech, 'loss_ratio']:.2f})")
-        print(largest_losses(tech_claims, n=3).to_string(index=False))
+        print(fmt_for_print(largest_losses(tech_claims, n=3)).to_string(index=False))
 
     save_results(matched, claims, summary)
     print(f"\nResults saved to {OUT_DIR.relative_to(ROOT)}/")

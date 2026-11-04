@@ -4,7 +4,8 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from analyse import add_policy_info, largest_losses, load, summary_by_technology
+from analyse import (add_policy_info, eur, eur_m, largest_losses, load, pct,
+                     summary_by_technology)
 
 st.set_page_config(page_title="PowerGen Claims–Exposure", layout="wide")
 
@@ -23,7 +24,6 @@ try:
 except RuntimeError as error:  # no database yet: show the message, stop the page
     st.error(str(error))
     st.stop()
-money = "€{:,.0f}"
 
 st.title("PowerGen Claims–Exposure")
 st.caption("Synthetic data only. No real plants, clients or insurers.")
@@ -36,8 +36,8 @@ with overview:
     total_loss = summary["net_loss_eur"].sum()
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Premium", f"€{total_premium / 1e6:,.1f}m")
-    col2.metric("Net losses", f"€{total_loss / 1e6:,.1f}m")
+    col1.metric("Premium", eur(total_premium))
+    col2.metric("Net losses", eur(total_loss))
     col3.metric("Loss ratio", f"{total_loss / total_premium:.2f}")
 
     st.subheader("Loss ratio by technology")
@@ -53,15 +53,13 @@ with overview:
     st.altair_chart(bars + break_even, width="stretch")
 
     st.dataframe(summary.style.format({
-        "plant_years": "{:.1f}", "premium_eur": money, "net_loss_eur": money,
-        "largest_eur": money, "severity_eur": money, "frequency": "{:.2f}",
+        "plant_years": "{:.1f}", "premium_eur": eur, "net_loss_eur": eur,
+        "largest_eur": eur, "severity_eur": eur, "frequency": "{:.2f}",
         "loss_ratio": "{:.2f}", "lr_without_top1": "{:.2f}", "lr_without_top2": "{:.2f}",
     }))
     st.subheader("Largest losses")
     st.dataframe(largest_losses(claims).style.format({
-        "sum_insured_eur_m": "€{:,.0f}m",
-        "net_loss_eur": lambda x: f"€{x / 1e6:,.2f}m",
-        "share_of_value_pct": "{:.2f} %",
+        "sum_insured_eur_m": eur_m, "net_loss_eur": eur, "share_of_value_pct": pct,
     }), hide_index=True)
 
 with lookup:
@@ -76,8 +74,8 @@ with lookup:
 
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Technology", plant["technology"])
-    col2.metric("Sum insured", f"€{plant['sum_insured_eur'] / 1e6:,.1f}m")
-    col3.metric("Premium (policy period)", f"€{premium:,.0f}")
+    col2.metric("Sum insured", eur_m(plant["sum_insured_eur"] / 1e6))
+    col3.metric("Premium (policy period)", eur(premium))
     col4.metric("Loss ratio", f"{net_loss / premium:.2f}")
 
     st.caption(f"{plant['plant_id']} · {plant['country']} · {plant['capacity_mw']} MW · "
@@ -90,7 +88,7 @@ with lookup:
         table = plant_claims[["claim_id", "loss_date_clean", "cause", "amount_eur",
                               "net_loss_eur", "covered", "match_method"]].sort_values("loss_date_clean")
         table["loss_date_clean"] = table["loss_date_clean"].dt.date
-        st.dataframe(table.style.format({"amount_eur": money, "net_loss_eur": money}),
+        st.dataframe(table.style.format({"amount_eur": eur, "net_loss_eur": eur}),
                      hide_index=True)
 
 with review:
@@ -103,7 +101,7 @@ with review:
                "for context; name scores below 0.90 are not accepted.")
     st.dataframe(unmatched[["claim_id", "plant_id", "plant_name", "technology_clean",
                             "amount_eur", "best_candidate", "name_score"]]
-                 .style.format({"amount_eur": money, "name_score": "{:.2f}"}),
+                 .style.format({"amount_eur": eur, "name_score": "{:.2f}"}),
                  hide_index=True)
 
     spot_check = matched[(matched["match_method"] == "name")
@@ -122,5 +120,5 @@ with review:
         outside[col] = outside[col].dt.date
     st.dataframe(outside[["claim_id", "plant_name", "loss_date_clean",
                           "policy_start", "policy_end", "amount_eur"]]
-                 .style.format({"amount_eur": money}),
+                 .style.format({"amount_eur": eur}),
                  hide_index=True)
