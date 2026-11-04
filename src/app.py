@@ -58,6 +58,7 @@ with overview:
     }))
     st.subheader("Largest losses")
     st.dataframe(largest_losses(claims).style.format({
+        "sum_insured_eur_m": "€{:,.0f}m",
         "net_loss_eur": money, "share_of_value_pct": "{:.2f} %",
     }), hide_index=True)
 

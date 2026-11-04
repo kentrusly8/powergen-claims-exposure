@@ -61,10 +61,11 @@ def summary_by_technology(claims, exposure):
 def largest_losses(claims, n=10):
     """The n largest covered losses, with their size compared to the plant's value."""
     top = claims[claims["covered"]].nlargest(n, "net_loss_eur").copy()
+    top["sum_insured_eur_m"] = top["sum_insured_eur"] / 1e6
     top["share_of_value_pct"] = top["net_loss_eur"] / \
         top["sum_insured_eur"] * 100
     return top[["claim_id", "plant_name", "technology", "cause",
-                "net_loss_eur", "share_of_value_pct"]]
+                "sum_insured_eur_m", "net_loss_eur", "share_of_value_pct"]]
 
 
 def lr_without_top(claims, summary, n):
@@ -116,6 +117,7 @@ def save_results(matched, claims, summary):
         "Plant": top["plant_name"],
         "Technology": top["technology"],
         "Cause": top["cause"],
+        "Plant value (EUR m)": top["sum_insured_eur_m"].round(0),
         "Net loss (EUR m)": (top["net_loss_eur"] / 1e6).round(2),
         "Share of plant value (%)": top["share_of_value_pct"].round(2),
     })
