@@ -16,6 +16,7 @@ def get_data():
     matched, exposure = load()
     claims = add_policy_info(matched, exposure)
     summary = summary_by_technology(claims, exposure)
+    summary["lr_without_top1"] = lr_without_top(claims, summary, n=1)
     summary["lr_without_top2"] = lr_without_top(claims, summary, n=2)
     return matched, claims, exposure, summary
 
@@ -53,7 +54,7 @@ with overview:
     st.dataframe(summary.style.format({
         "plant_years": "{:.1f}", "premium_eur": money, "net_loss_eur": money,
         "largest_eur": money, "severity_eur": money, "frequency": "{:.2f}",
-        "loss_ratio": "{:.2f}", "lr_without_top2": "{:.2f}",
+        "loss_ratio": "{:.2f}", "lr_without_top1": "{:.2f}", "lr_without_top2": "{:.2f}",
     }))
     st.subheader("Largest losses")
     st.dataframe(largest_losses(claims).style.format({
